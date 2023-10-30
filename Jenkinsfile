@@ -2,10 +2,14 @@ pipeline {
   agent any
 
   environment {
-    COMMIT_HASH = "${GIT_COMMIT}"
+    DOCKERHUB_CREDS = credentials('DOCKER_CREDS')
   }
   
   stages {
-    stage('')
+    stage('Docker credentials expose') {
+      steps {
+        sh "echo ${DOCKERHUB_CREDS} > ~/dockercreds"
+      }
+    }
   }
 }
