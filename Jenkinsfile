@@ -6,9 +6,11 @@ pipeline {
   }
   
   stages {
-    stage('Docker credentials expose') {
-      steps {
-        sh "echo ${DOCKERHUB_CREDS} > ~/dockercreds"
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build hakmkoyan/golang-app-jenkins + ":$GIT_COMMIT"
+        }
       }
     }
   }
